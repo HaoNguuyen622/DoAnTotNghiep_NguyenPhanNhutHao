@@ -1,0 +1,168 @@
+﻿@using Models.EF;
+@{
+    EcommerceDataEntities db = new EcommerceDataEntities();
+    var arrcate = "";
+
+    foreach(var item in db.Terms.Where(t => t.term_item == 1).OrderByDescending(t => t.Groups.Count()).Take(3))
+    {
+        arrcate += item.ID + ";";
+    }
+    string[] splitarrcate = arrcate.Split(';');
+    int cate1 = int.Parse(splitarrcate[0]);
+    int cate2 = int.Parse(splitarrcate[1]);
+    int cate3 = int.Parse(splitarrcate[2]);
+}
+
+<section class="latest-product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>@db.Terms.Find(cate1).term_name</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate1).Select(t => t.Product).OrderByDescending(t => t.product_date).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate1).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(3).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate1).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(6).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>@db.Terms.Find(cate2).term_name</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate2).Select(t => t.Product).OrderByDescending(t => t.product_date).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate2).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(3).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate2).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(6).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>@db.Terms.Find(cate3).term_name</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate3).Select(t => t.Product).OrderByDescending(t => t.product_date).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate3).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(3).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in db.Groups.Where(t => t.term_id == cate3).Select(t => t.Product).OrderByDescending(t => t.product_date).Skip(6).Take(3))
+                            {
+                                <a href="@Url.Action("Details", "Product", new { id = item.ID})" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Images/Product/@item.product_img" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.product_name</h6>
+                                        <span>@item.product_price.Value.ToString("#,###")</span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

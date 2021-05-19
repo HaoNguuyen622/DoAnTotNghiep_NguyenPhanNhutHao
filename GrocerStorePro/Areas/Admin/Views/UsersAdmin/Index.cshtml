@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Models.EF.User>
+
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/LayoutAdmin/css/bootstrap.css">
+
+<link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/simple-datatables/style.css">
+
+<link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="~/Content/LayoutAdmin/css/app.css">
+<link rel="shortcut icon" href="~/Content/LayoutAdmin/images/favicon.svg" type="image/x-icon">
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <a href="/Admin/UsersAdmin/Create" class="btn btn-danger"><i class="fa fa-plus"></i>&nbsp;Thêm khách hàng</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Tên hiển thị</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Zalo</th>
+                        <th>Facebook</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày tạo</th>
+                        <th>Ngày đăng nhập</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.user_email</td>
+                            
+                            <td>@item.user_nicename</td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                @if (item.user_status == Commons.CommonConstants.user_status_ondinh)
+                                {
+                                    <span class="badge bg-success">Hoạt động ổn định</span>
+                                }
+                                else if (item.user_status == Commons.CommonConstants.user_status_uutien)
+                                {
+                                    <span class="badge bg-success">Ưu tiên</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Spam</span> 
+                                }
+                            </td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "date").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "date").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                @(item.UserMetas.FirstOrDefault(t => t.meta_key == "date_login").meta_value != null ? item.UserMetas.FirstOrDefault(t => t.meta_key == "date_login").meta_value : "Chưa cập nhật")
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details","UsersAdmin", new { id = item.ID })"><i class="fa fa-eye"></i></a> | 
+                                <a href="@Url.Action("Delete","UsersAdmin", new { id = item.ID })"><i class="fa fa-trash"></i></a> | 
+                                <a href="@Url.Action("Edit","UsersAdmin", new { id = item.ID })"><i class="fa fa-edit"></i></a> 
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+<script src="~/Content/LayoutAdmin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/Content/LayoutAdmin/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/Content/LayoutAdmin/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+<script src="~/Content/LayoutAdmin/js/main.js"></script>

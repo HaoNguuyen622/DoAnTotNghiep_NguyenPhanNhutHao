@@ -1,0 +1,147 @@
+﻿@using Models.EF;
+@using GrocerStorePro.Models;
+@using GrocerStorePro.Function;
+@model List<Cart>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    FunctionController fucntion = new FunctionController();
+}
+@Html.Action("SearchHeader", "Product")
+<section class="breadcrumb-section set-bg" data-setbg="/Content/Layout/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Giỏ hàng của bạn</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <form action="@Url.Action("UpdateCart", "Pay")" method="post" class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="shoping__product">Sản phẩm</th>
+                                <th>Giá tiền</th>
+                                <th>Số lượng</th>
+                                <th>Tổng cộng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                @Html.HiddenFor(model => model[i].Id)
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="~/Images/Product/@Model[i].Image" alt="">
+                                        <h5>Vegetable’s Package</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        @Model[i].Price.ToString("#,###") VNĐ
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <div class="quantity">
+                                            <div class="pro-qty">
+                                                @Html.EditorFor(model => model[i].Amount, new { @min = 1 })
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="shoping__cart__total">
+                                        @((Model[i].Price * Model[i].Amount).ToString("#,###")) VNĐ
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <a href="@Url.Action("RemoveItemCart", "Pay", new { id = Model[i].Id})"><span class="icon_close"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="/" class="primary-btn cart-btn">TIẾP TỤC MUA SẮM</a>
+                    @if (Model.Count() > 0)
+                    {
+                        <button type="submit" class="primary-btn cart-btn cart-btn-right">
+                            <span class="icon_loading"></span>
+                            Cập nhật đơn hàng
+                        </button>
+                    }
+                    else
+                    {
+                        <a onclick="alert('Không có sản phẩm!')" class="primary-btn cart-btn cart-btn-right">
+                            <span class="icon_loading"></span>
+                            Cập nhật đơn hàng
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__continue">
+                    <div class="shoping__discount">
+                        <h5>Discount Codes</h5>
+                        <div action="#">
+                            <input type="text" placeholder="Enter your coupon code">
+                            <button type="submit" class="site-btn">APPLY COUPON</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shoping__checkout">
+                    <h5>Tổng tiền đon hàng</h5>
+                    <ul>
+                        <li>Subtotal <span>$454.98</span></li>
+                        <li>Tổng cộng <span>@Model.Sum(t => (t.Price * t.Amount)).ToString("#,###") VNĐ</span></li>
+                    </ul>
+                    @if (fucntion.CookieID() == null)
+                    {
+                        <button disabled class="primary-btn">XÁC NHẬN ĐƠN HÀNG</button>
+                        <span style="color: red">Vui lòng đăng nhập để xác nhận đơn hàng!</span>
+                    }
+                    else if (fucntion.CookieID().UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value == null || fucntion.CookieID().UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value == null)
+                    {
+                        <button disabled class="primary-btn">XÁC NHẬN ĐƠN HÀNG</button>
+                        <span style="color: red">Vui lòng cập nhật thông tin cá nhân để xác nhận đơn hàng!</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("ConfirmOrder", "Pay")" class="primary-btn">XÁC NHẬN ĐƠN HÀNG</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+<!-- Shoping Cart Section End -->
+@*<script>
+          $(document).ready(function () {
+              function updateAmount(id, amount) {
+                  alert("aa");
+                $.ajax({
+                    type: "post",
+                    url: "/Pay/AddItemToCart?amount=" + amount + "&id=" + id,
+                    type: "json",
+                    success: function (respnse) {
+
+                    }
+                })
+            }
+          })
+
+        function noti() {
+            alert("Cập nhật thành công!");
+        }
+    </script>*@

@@ -1,0 +1,480 @@
+﻿@using Models.EF;
+@{
+    EcommerceDataEntities db = new EcommerceDataEntities();
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    List<Pay> pays = db.Pays.ToList();
+}
+
+<section class="row">
+    <div class="col-12 col-lg-9">
+        <div class="row">
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng khách hàng</h6>
+                                <h6 class="font-extrabold mb-0">@db.Users.Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon blue">
+                                    <i class="fa fa-book"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng sản phẩm</h6>
+                                <h6 class="font-extrabold mb-0">@db.Products.Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green">
+                                    <i class="fa fa-cart-plus"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Đơn hàng đã giao</h6>
+                                <h6 class="font-extrabold mb-0">@db.Pays.Where(n=>n.pay_status == Commons.CommonConstants.pay_status_dagiao).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon red">
+                                    <i class="fa fa-mail-reply-all"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Đơn hàng chờ duyệt</h6>
+                                <h6 class="font-extrabold mb-0">@db.Pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_chuaduyet).Count()</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Thống kê sản phẩm</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Sản phẩm còn hàng</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@db.Products.Where(n => n.product_inventory > 0).Count()</h5>
+                            </div>
+                            <div class="col-12">
+                                <div id="chart-europe"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Sản phẩm hết hàng</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@db.Products.Where(n => n.product_inventory < 1).Count()</h5>
+                            </div>
+                            <div class="col-12">
+                                <div id="chart-america"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Doanh thu theo ngày</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng hóa đơn bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Count()</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Doanh thu bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Số tiền đang chờ</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status != Commons.CommonConstants.pay_status_dagiao && n.pay_date.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).Sum(n => n.pay_sum) vnđ</h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Doanh thu theo tuần</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng hóa đơn bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddDays(7)).Count()</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Doanh thu bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddDays(7)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Số tiền đang chờ</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status != Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddDays(7)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Doanh thu theo tháng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng hóa đơn bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(1)).Count()</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Doanh thu bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(1)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Số tiền đang chờ</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status != Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(1)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Doanh thu trong 3 tháng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng hóa đơn bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(3)).Count()</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Doanh thu bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(3)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Số tiền đang chờ</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status != Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddMonths(3)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Doanh thu trong năm</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Tổng hóa đơn bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddYears(1)).Count()</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-success" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Doanh thu bán được</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status == Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddYears(1)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                         style="width:10px">
+                                        <use xlink:href="~/Content/LayoutAdmin/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
+                                    </svg>
+                                    <h5 class="mb-0 ms-3">Số tiền đang chờ</h5>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="mb-0">@pays.Where(n => n.pay_status != Commons.CommonConstants.pay_status_dagiao && n.pay_date > n.pay_date.Value.AddYears(1)).Sum(n => n.pay_sum) vnđ</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Sản phẩm gần đây</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>Hình ảnh</th>
+                                        <th>Tên</th>
+                                        <th>Giá</th>
+                                        <th>Tùy chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in db.Products.OrderByDescending(n=>n.product_date).Take(10))
+                                    {
+                                        <tr>
+                                            <td class="col-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="avatar avatar-md">
+                                                        <img src="~/Images/Product/@item.product_img" style="width: 50px; height: 50px">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-3">
+                                                <div class="d-flex align-items-center">
+                                                    <p class="font-bold ms-3 mb-0">@item.product_name</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @item.product_price vnđ
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("Details","ProductsAdmin", new { id = item.ID })"><i class="fa fa-eye"></i></a> |
+                                                <a href="@Url.Action("Delete","ProductsAdmin", new { id = item.ID })"><i class="fa fa-trash"></i></a> |
+                                                <a href="@Url.Action("Edit","ProductsAdmin", new { id = item.ID })"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-3">
+        <div class="card">
+            <div class="card-body py-4 px-5">
+                <div class="d-flex align-items-center">
+                    <div class="avatar avatar-xl">
+                        <img src="~/Content/LayoutAdmin/images/faces/1.jpg" alt="Face 1">
+                    </div>
+                    <div class="ms-3 name">
+                        <h5 class="font-bold">Tổng doanh thu</h5>
+                        <h6 class="text-muted mb-0">@pays.Where(n=>n.pay_status == Commons.CommonConstants.pay_status_dagiao).Sum(n=>n.pay_sum) vnđ</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Khách hàng gần đây</h4>
+            </div>
+            <div class="card-content pb-4">
+                @foreach (var item in db.Users.Take(16))
+                {
+                    <div class="recent-message d-flex px-4 py-3">
+                        <div class="avatar avatar-lg">
+                            <img src="~/Content/LayoutAdmin/images/faces/4.jpg">
+                        </div>
+                        <div class="name ms-4">
+                            <h5 style="font-size: 17px" class="mb-1">@item.user_email</h5>
+                            <h6 class="text-muted mb-0">@item.user_nicename - @item.UserMetas.FirstOrDefault(t => t.meta_key == "date").meta_value</h6>
+                        </div>
+                    </div>
+                }
+                <div class="px-4">
+                    <a href="/Admin/UsersAdmin/Index" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>
+                        Xem tất cả
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4>Visitors Profile</h4>
+            </div>
+            <div class="card-body">
+                <div id="chart-visitors-profile"></div>
+            </div>
+        </div>
+    </div>
+</section>

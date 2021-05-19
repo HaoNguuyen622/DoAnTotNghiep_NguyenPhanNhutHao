@@ -1,0 +1,147 @@
+﻿@model Models.EF.Product
+
+@{
+    ViewBag.Title = "Xóa thông tin sản phẩm " + Model.product_name;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <button class="btn btn-danger" onclick="history.back()"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</button>
+        </div>
+        <div class="card-body">
+
+            <h3>Bạn có chắc muốn xóa sản phẩm này?</h3>
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        <b>Ngày tạo</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_date)
+                    </dd>
+
+                    <dt>
+                        <b>Ngày cập nhật</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_update)
+                    </dd>
+
+                    <dt>
+                        <b>Tên sản phẩm</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_name)
+                    </dd>
+
+                    <dt>
+                        <b>Key</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_guid)
+                    </dd>
+
+                    <dt>
+                        <b>Mật khẩu</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_password)
+                    </dd>
+
+                    <dt>
+                        <b>Lượt xem</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_view)
+                    </dd>
+
+                    <dt>
+                        <b>Nội dung</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_content)
+                    </dd>
+
+                    <dt>
+                        <b>Trạng thái</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_status)
+                    </dd>
+
+                    <dt>
+                        <b>Hình ảnh</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_img)
+                    </dd>
+
+                    <dt>
+                        <b>Giá</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_price)
+                    </dd>
+
+                    <dt>
+                        <b>Giảm giá</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_percent)
+                    </dd>
+
+                    <dt>
+                        <b>Tình trạng</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_active)
+                    </dd>
+
+                    <dt>
+                        <b>Tồn kho</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.product_inventory)
+                    </dd>
+
+                    <dt>
+                        Email đăng
+                    </dt>
+
+                    <dd>
+                        @Model.User.user_email
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Xóa vĩnh viễn" class="btn btn-danger" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</section>
+
+

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Models.EF.Pay>
+@using GrocerStorePro.Models;
+@using Newtonsoft.Json;
+@using Models.EF
+@using GrocerStorePro.Function;
+@{
+
+    EcommerceDataEntities db = new EcommerceDataEntities();
+    ViewBag.Title = "Danh sách hóa đơn chưa duyệt";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<Product> product = db.Products.ToList();
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Các sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Tổng giá</th>
+                        <th>Ngày đặt hàng</th>
+                        <th>Hình thức</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.User.user_email
+                            </td>
+                            <td>@(item.User.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value != null ? item.User.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value : "Chưa cập nhật")</td>
+                            <td>@(item.User.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value != null ? item.User.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value : "Chưa cập nhật")</td>
+                            <td>
+                                @{
+                                    List<ViewInfoProduct> infoProducts = JsonConvert.DeserializeObject<List<ViewInfoProduct>>(item.item_json,
+                                    new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                                }
+                                <div>
+                                    <table>
+                                        @foreach (var item1 in infoProducts)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img style="width: 50px; height: 50px" src="~/Images/Product/@product.FirstOrDefault(n=>n.ID == int.Parse(item1.Product_Id)).product_img" />
+                                                </td>
+                                                <td>
+                                                    <b>@product.FirstOrDefault(n => n.ID == int.Parse(item1.Product_Id)).product_name</b> <br />
+                                                    <span>Số lượng: @item1.Amount</span> <br />
+                                                    <span>Tổng giá: @item1.Price vnđ</span> <br />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            </td>
+                            <td>@infoProducts.Sum(t => int.Parse(t.Amount))</td>
+                            <td>@item.pay_sum.Value.ToString("#,###") vnđ</td>
+                            <td>@item.pay_date</td>
+                            <td>
+                                @*@if(item.pay_form == Commons.CommonConstants.form_giaohanglaytien)
+                                    {
+                                        <b>Thanh toán khi giao hàng</b>
+                                    }
+                                    else
+                                    {
+                                        <b>Thanh toán online</b>
+                                    }*@
+                                NONE
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Details","PaysAdmin", new { id = item.ID })"><i class="fa fa-eye"></i></a> |
+                                <a href="@Url.Action("Delete","PaysAdmin", new { id = item.ID })"><i class="fa fa-trash"></i></a> |
+                                <a href="@Url.Action("Edit","PaysAdmin", new { id = item.ID })"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>

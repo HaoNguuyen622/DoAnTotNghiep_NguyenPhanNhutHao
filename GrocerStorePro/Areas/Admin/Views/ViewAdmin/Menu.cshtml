@@ -1,0 +1,89 @@
+﻿<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div class="logo">
+                    Quản lý Admin
+                </div>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+
+                <li class="sidebar-item @(ViewBag.Menu == "Trang chủ" ? "active" : "")">
+                    <a href="/Admin/HomeAdmin/Index" class='sidebar-link'>
+                        <i class="fa fa-home"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <hr />
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Quản lý khách hàng" ? "active" : "")">
+                    <a href="/Admin/UsersAdmin/Index" class='sidebar-link'>
+                        <i class="fa fa-user-circle"></i>
+                        <span>Tất cả người dùng</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Quản lý Admin" ? "active" : "") ">
+                    <a href="/Admin/UsersAdmin/IndexAdmin" class='sidebar-link'>
+                        <i class="fa fa-user-plus"></i>
+                        <span>Admin</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <hr />
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Danh sách sản phẩm" ? "active" : "")  ">
+                    <a href="/Admin/ProductsAdmin/Index" class='sidebar-link'>
+                        <i class="fa fa-book"></i>
+                        <span>Tất cả Sản phẩm</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Danh sách sản phẩm hết hàng" ? "active" : "") ">
+                    <a href="/Admin/ProductsAdmin/IndexOutOfStock" class='sidebar-link'>
+                        <i class="fa fa-bookmark"></i>
+                        <span>Sản phẩm hết hàng</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <hr />
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Danh sách danh mục" ? "active" : "") ">
+                    <a href="/Admin/TermsAdmin/Index" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Danh mục</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <hr />
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Danh sách hóa đơn" ? "active" : "") ">
+                    <a href="/Admin/PaysAdmin/Index" class='sidebar-link'>
+                        <i class="fa fa-money"></i>
+                        <span>Đơn hàng</span>
+                    </a>
+                </li>
+                <li class="sidebar-item @(ViewBag.Menu == "Danh sách hóa đơn chưa duyệt" ? "active" : "") ">
+                    <a href="/Admin/PaysAdmin/IndexNone" class='sidebar-link'>
+                        <i class="fa fa-history"></i>
+                        <span>Đơn hàng chưa duyệt</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <hr />
+                </li>
+                <li class="sidebar-item  ">
+                    <a href="/Admin/ViewAdmin/Logoff" class='sidebar-link'>
+                        <i class="fa fa-sign-out"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+</div>

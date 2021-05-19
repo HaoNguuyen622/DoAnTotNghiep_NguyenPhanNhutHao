@@ -1,0 +1,215 @@
+﻿@using Models.EF;
+@{ 
+    EcommerceDataEntities db = new EcommerceDataEntities();
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js"></script>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Content/Layout/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/Layout/css/style.css" type="text/css">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    @Html.Action("Menu", "View")
+    <!-- Humberger End -->
+    <!-- Header Section Begin -->
+    <!-- Header Section End -->
+    <!-- Hero Section Begin -->
+    <!-- Hero Section End -->
+    <!-- Categories Section Begin -->
+    <!-- Categories Section End -->
+    <!-- Featured Section Begin -->
+    @RenderBody()
+    <!-- Featured Section End -->
+    <!-- Banner Begin -->
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="~/Content/Layout/img/banner/banner-1.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img src="~/Content/Layout/img/banner/banner-2.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->
+    <!-- Latest Product Section Begin -->
+    @Html.Action("Top3SlideProduct", "Home")
+    <!-- Latest Product Section End -->
+    <!-- Blog Section Begin -->
+    <section class="from-blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title from-blog__title">
+                        <h2>From The Blog</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="~/Content/Layout/img/blog/blog-1.jpg" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                <li><i class="fa fa-comment-o"></i> 5</li>
+                            </ul>
+                            <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="~/Content/Layout/img/blog/blog-2.jpg" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                <li><i class="fa fa-comment-o"></i> 5</li>
+                            </ul>
+                            <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="~/Content/Layout/img/blog/blog-3.jpg" alt="">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                <li><i class="fa fa-comment-o"></i> 5</li>
+                            </ul>
+                            <h5><a href="#">Visit the clean farm in the US</a></h5>
+                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Blog Section End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="~/Content/Layout/img/logo.png" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Tên: Nguyễn Phan Nhựt Hào</li>
+                            <li>MSSV: 1724801030034</li>
+                            <li>Email: nguyenphannhuthao1999@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        <h6>Thông tin</h6>
+                        <ul>
+                            <li><a href="#">Tất cả sản phẩm</a></li>
+                            <li><a href="#">Đơn hàng</a></li>
+                            <li><a href="#">Sản phẩm yêu thích</a></li>
+                            <li><a href="#">Đơn hàng đang duyệt</a></li>
+                            <li><a href="#">Đơn hàng đã mua</a></li>
+                            <li><a href="#">Lịch sử thanh toán</a></li>
+                        </ul>
+                        <ul>
+                            @foreach (var item in db.Terms.Where(n => n.term_item == 1))
+                            {
+                                <li><a href="/Product/GetProductByCategoryId/@item.ID">@item.term_name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Chúng tôi sẽ hổ trợ bạn</h6>
+                        <p>Để email tại đây.</p>
+                        <form action="#">
+                            <input type="text" placeholder="Email của bạn">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                        <div class="footer__widget__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> Bản quyền của <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">1724801030034</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="~/Content/Layout/img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/Content/Layout/js/jquery-3.3.1.min.js"></script>
+
+    <script src="~/Content/Layout/js/bootstrap.min.js"></script>
+    <script src="~/Content/Layout/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/Layout/js/jquery-ui.min.js"></script>
+    <script src="~/Content/Layout/js/jquery.slicknav.js"></script>
+    <script src="~/Content/Layout/js/mixitup.min.js"></script>
+    <script src="~/Content/Layout/js/owl.carousel.min.js"></script>
+    <script src="~/Content/Layout/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.min.js" integrity="sha512-DedNBWPF0hLGUPNbCYfj8qjlEnNE92Fqn7xd3Sscfu7ipy7Zu33unHdugqRD3c4Vj7/yLv+slqZhMls/4Oc7Zg==" crossorigin="anonymous"></script>
+</body>
+
+</html>

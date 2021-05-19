@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Models.EF.Product>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <a href="/Admin/ProductsAdmin/Create" class="btn btn-danger"><i class="fa fa-plus"></i>&nbsp;Thêm sản phẩm</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Hình ảnh</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Khuyến mãi</th>
+                        <th>Ngày tạo</th>
+                        <th>Ngày sửa</th>
+                        <th>Số lượng</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td><img src="~/Images/Product/@item.product_img" style="width: 50px; height: 50px" /></td>
+                            <td>@item.product_name</td>
+                            <td>@item.product_price.Value.ToString("#,###") vnđ</td>
+                            <td>@item.product_percent %</td>
+                            <td>@item.product_date</td>
+                            <td>@item.product_update</td>
+                            <td>@item.product_inventory</td>
+                            <td>
+                                <a href="@Url.Action("Details","ProductsAdmin", new { id = item.ID })"><i class="fa fa-eye"></i></a> |
+                                <a href="@Url.Action("Delete","ProductsAdmin", new { id = item.ID })"><i class="fa fa-trash"></i></a> |
+                                <a href="@Url.Action("Edit","ProductsAdmin", new { id = item.ID })"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+

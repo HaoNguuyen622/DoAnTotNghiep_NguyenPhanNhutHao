@@ -1,0 +1,93 @@
+﻿@model Models.EF.Product
+
+@{
+    ViewBag.Title = "Cập nhật sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <button class="btn btn-danger" onclick="history.back()"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</button>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "ProductsAdmin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.product_date)
+                    @Html.HiddenFor(model => model.product_img)
+                    <div class="form-group">
+                        <b>Tên sản phẩm</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Hình ảnh minh họa</b>
+                        <div class="col-md-10">
+                            <input type="file" name="img" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Giá bán</b>
+                        <div class="col-md-10">
+                            <input name="product_price" class="form-control" type="number" min="0" value="@Model.product_price" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Số lượng tồn</b>
+                        <div class="col-md-10">
+                            <input name="product_inventory" class="form-control" type="number" min="0" value="@Model.product_inventory" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Khuyến mãi</b>
+                        <div class="col-md-10">
+                            <input name="product_percent" class="form-control" type="number" min="0" value="@Model.product_percent" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Tình trạng (Cho chọn true, false dịch tiếng việt)</b>
+                        <div class="col-md-10">
+                            <div class="dropdown">
+                                <select name="product_active" class="form-control">
+                                    <option value="True" @(Model.product_active == true ? "selected" : "")>Hoạt động</option>
+                                    <option value="False" @(Model.product_active == false ? "selected" : "")>Không hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Nội dung</b>
+                        <div class="col-md-10">
+                            <textarea name="product_content">@Model.product_content</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Cập nhật sản phẩm" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</section>
+<script>
+    CKEDITOR.replace('product_content');
+</script>

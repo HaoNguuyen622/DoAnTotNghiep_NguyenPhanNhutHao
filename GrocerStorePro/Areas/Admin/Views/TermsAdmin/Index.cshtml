@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Models.EF.Term>
+
+@{
+    ViewBag.Title = "Danh sách danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <a href="/Admin/TermsAdmin/Create" class="btn btn-danger"><i class="fa fa-plus"></i>&nbsp;Thêm danh mục</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Tùy chọn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.term_name
+                            </td>
+                            <td>
+                                @if (item.Groups.Count() > 0)
+                                {
+                                    <a onclick="alert('Danh mục có chứa sản phẩm không thể xóa!')"><i class="fa fa-trash"></i></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Delete","TermsAdmin", new { id = item.ID })"><i class="fa fa-trash"></i></a>
+                                }
+                                |
+                                <a href="@Url.Action("Edit","TermsAdmin", new { id = item.ID })"><i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+

@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Models.EF.Pay>
+
+@{
+    ViewBag.Title = "Lịch sử thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Action("SearchHeader", "Product")
+<section class="breadcrumb-section set-bg" data-setbg="/Content/Layout/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>@ViewBag.Title</h2>
+                    <div class="breadcrumb__option text-white">
+                        Bạn có (@Model.Count()) sản phẩm đã thích
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-12 col-md-12">
+                <div class="">
+                    <div class="card-body">
+                        <div class="">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>
+                                        Mã đơn hàng
+                                    </th>
+                                    <th>
+                                        Các sản phẩm
+                                    </th>
+                                    <th>
+                                        Tổng giá
+                                    </th>
+                                    <th>
+                                        Trạng thái
+                                    </th>
+                                    <th>
+                                        Hình thức
+                                    </th>
+                                    <th>
+                                        Ngày thanh toán
+                                    </th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ID</td>
+                                        <td>NONE</td>
+                                        <td>@item.pay_sum.Value.ToString("#,###") vnđ</td>
+                                        <td>@item.pay_status</td>
+                                        <td>@item.pay_form</td>
+                                        <td>@item.pay_date</td>
+                                    </tr>
+
+                                }
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .card {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        -ms-box-shadow: none
+    }
+
+    .pl-3,
+    .px-3 {
+        padding-left: 1rem !important
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #d2d2dc;
+        border-radius: 0
+    }
+
+        .card .card-title {
+            color: #000000;
+            margin-bottom: 0.625rem;
+            text-transform: capitalize;
+            font-size: 0.875rem;
+            font-weight: 500
+        }
+
+        .card .card-description {
+            margin-bottom: .875rem;
+            font-weight: 400;
+            color: #76838f
+        }
+
+    p {
+        font-size: 0.875rem;
+        margin-bottom: .5rem;
+        line-height: 1.5rem
+    }
+
+    .table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: -ms-autohiding-scrollbar
+    }
+
+    .table,
+    .jsgrid .jsgrid-table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+        background-color: transparent
+    }
+
+        .table thead th,
+        .jsgrid .jsgrid-table thead th {
+            border-top: 0;
+            border-bottom-width: 1px;
+            font-weight: 500;
+            font-size: .875rem;
+            text-transform: uppercase
+        }
+
+        .table td,
+        .jsgrid .jsgrid-table td {
+            font-size: 0.875rem;
+            padding: .875rem 0.9375rem
+        }
+
+    .badge {
+        border-radius: 0;
+        font-size: 12px;
+        line-height: 1;
+        padding: .375rem .5625rem;
+        font-weight: normal
+    }
+</style>
+

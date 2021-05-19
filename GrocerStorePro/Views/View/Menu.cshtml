@@ -1,0 +1,161 @@
+﻿
+@using GrocerStorePro.Function;
+@{
+    FunctionController fucntion = new FunctionController();
+
+}
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="#"><img src="~/Content/Layout/img/logo.png" alt=""></a>
+    </div>
+    <div class="humberger__menu__cart">
+        <ul>
+            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+        </ul>
+        <div class="header__cart__price">item: <span>$150.00</span></div>
+    </div>
+    <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+            <img src="~/Content/Layout/img/language.png" alt="">
+            <div>English</div>
+            <span class="arrow_carrot-down"></span>
+            <ul>
+                <li><a href="#">Tiếng Việt</a></li>
+                <li><a href="#">Tiếng Anh</a></li>
+            </ul>
+        </div>
+        <div class="header__top__right__auth">
+            <a href="#"><i class="fa fa-user"></i>Đăng nhập</a>
+        </div>
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li class="active"><a href="/">Trang chủ</a></li>
+            <li>
+                <a href="#">Sản phẩm</a>
+                <ul class="header__menu__dropdown">
+                    <li><a href="./shop-details.html">Bán chạy</a></li>
+                    <li><a href="/Pays/Cart">Giá rẻ</a></li>
+                    <li><a href="./checkout.html">Hàng nhiều</a></li>
+                    <li><a href="./blog-details.html">Tất cả sản phẩm</a></li>
+                </ul>
+            </li>
+            <li><a href="./blog.html">Giảm giá</a></li>
+            <li><a href="./contact.html">Liên hệ</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+    </div>
+    <div class="humberger__menu__contact">
+        <ul>
+            <li><i class="fa fa-envelope"></i> tubovao@gmail.com</li>
+            <li>Bán tất cả mặc hàng online</li>
+        </ul>
+    </div>
+</div>
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__left">
+                        <ul>
+                            <li><i class="fa fa-envelope"></i> tubovao@gmail.com</li>
+                            <li>Bán tất cả mặc hàng online</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="header__top__right">
+                        <div class="header__top__right__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                        </div>
+                        <div class="header__top__right__language">
+                            <img src="~/Content/Layout/img/language.png" alt="">
+                            <div>Tiếng Việt</div>
+                            <span class="arrow_carrot-down"></span>
+                            <ul>
+                                <li><a href="#">Tiếng Việt</a></li>
+                                <li><a href="#">Tiếng Anh</a></li>
+                            </ul>
+                        </div>
+                        @if (fucntion.CookieID() != null)
+                        {
+                            <div class="header__top__right__auth">
+                                <div class="header__top__right__language">
+                                    <img src="~/Images/Users/USER.png" alt="" style="width: 30px; height: 30px; border-radius: 50%">
+                                    <div>Chào @fucntion.CookieID().user_nicename</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul style="width: auto">
+                                        <li><a href="/Account/MyProfile"><i class="fa fa-user">&nbsp;</i>Thông tin cá nhân</a></li>
+                                        <li><a href="/Account/MyProfile?key=thongtinmuahang"><i class="fa fa-cog">&nbsp;</i>Cài đặt thông tin mua hàng</a></li>
+                                        <li><a href="/Pay/Cart"><i class="fa fa-cart-plus">&nbsp;</i>Giỏ hàng của bạn</a></li>
+                                        <li><a href="/Product/OderBrowsing"><i class="fa fa-cart-arrow-down">&nbsp;</i>Đơn hàng đang duyệt</a></li>
+                                        <li><a href="/Product/MyCollection"><i class="fa fa-heart">&nbsp;</i>Sản phẩm đã lưu</a></li>
+                                        <li><a href="/Product/OderYesBrowsing"><i class="fa fa-history">&nbsp;</i>Lịch sử đơn hàng đã mua</a></li>
+                                        <li><a href="/Pay/HistoryPay"><i class="fa fa-money">&nbsp;</i>Lịch sử thanh toán</a></li>
+                                        <li><a href="/Account/MyProfile?key=doimatkhau"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</a></li>
+                                        <li><a href="@Url.Action("Logoff","Account")"><i class="fa fa-sign-out">&nbsp;</i>Đăng xuất</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="header__top__right__auth">
+                                <a href="/Account/Login"><i class="fa fa-user"></i> Đăng nhập</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="/"><img src="~/Content/Layout/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                        <li class="active"><a href="/">Trang chủ</a></li>
+                        <li>
+                            <a href="#">Sản phẩm</a>
+                            <ul class="header__menu__dropdown">
+                                <li><a href="/Product/Index">Tất cả sản phẩm</a></li>
+                                <li><a href="/Product/PromotionProduct">Giảm giá</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./blog.html">Giảm giá</a></li>
+                        <li><a href="./contact.html">Liên hệ</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3">
+                <div class="header__cart">
+                    <ul>
+                        <li><a href="/Product/MyCollection"><i class="fa fa-heart"></i> <span>@ViewBag.CountCollection</span></a></li>
+                        <li><a href="/Pay/Cart"><i class="fa fa-shopping-bag"></i> <span>@ViewBag.CountProduct</span></a></li>
+                    </ul>
+                    <div class="header__cart__price">Tổng: <span>@ViewBag.TotalPrice VNĐ</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="humberger__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+

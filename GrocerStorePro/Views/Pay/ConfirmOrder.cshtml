@@ -1,0 +1,182 @@
+﻿@using Models.EF;
+@using GrocerStorePro.Models;
+@using GrocerStorePro.Function;
+@model List<Cart>
+@{
+    ViewBag.Title = "Xác nhận đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    FunctionController fucntion = new FunctionController();
+    var user = fucntion.CookieID();
+}
+@Html.Action("SearchHeader", "Product")
+<section class="breadcrumb-section set-bg" data-setbg="/Content/Layout/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Thanh toán đơn hàng của @user.user_email</h2>
+                    <div class="breadcrumb__option">
+                        <a href="/">Home</a>
+                        <span>Xác nhận đơn hàng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container mt-3 mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div class="d-flex flex-row align-items-center">
+                <h4 class="text-uppercase mt-1">Xác nhận đơn hàng</h4> <span class="ml-2"></span>
+            </div> <a href="#" class="cancel com-color">Tổng đơn hàng</a>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="mb-0 text-success"></h5>
+
+                <form action="@Url.Action("ConfirmOrder", "Pay")" method="post">
+                    <h5 class="mb-3">Tên khách hàng</h5>
+                    <input value="@user.user_nicename" type="text" name="Name" class="form-control" />
+                    <h5 class="mb-3 mt-3">Địa chỉ</h5>
+                    <input value="@user.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value" type="text" name="Address" class="form-control" />
+                    <h5 class="mb-3 mt-3">Số điện thoại</h5>
+                    <input value="@user.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value" type="text" name="Phone" class="form-control" />
+
+                    <br />
+                    <div class="about">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row mt-1">
+                                <h6>Tổng tiền</h6>
+                                <h6 class="text-success font-weight-bold ml-1">NONE</h6>
+                            </div>
+                            <div class="d-flex flex-row align-items-center com-color"> <i class="fa fa-plus-circle"></i> <span onclick="window.location.href=''" class="ml-1">Mua thêm</span> </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-column">
+                            <label class="radio">
+                                <input type="radio" name="typepay" value="true" checked>
+                                <div class="d-flex justify-content-between"> <span>Trực tiếp</span> <span>Nhận tiền khi giao hàng</span> </div>
+                            </label> <label class="radio">
+                                <input type="radio" name="typepay" value="false">
+                                <div class="d-flex justify-content-between"> <span>Momo</span> <span>Thanh toán và nhận hàng</span> </div>
+                            </label>
+                        </div>
+                </form>
+                <div class="buttons"> <button class="btn btn-success btn-block">Thanh toán</button> </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <table>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        @Html.HiddenFor(model => model[i].Id)
+                                        <tr  style="font-size: 20px !important">
+                                            <td class="shoping__cart__item">
+                                                <img src="~/Images/Product/@Model[i].Image" alt="" style="width: 100px; height: 100px">
+                                                <h5>@Model[i].ProductName</h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                @Model[i].Price.ToString("#,###") VNĐ
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                        @Html.EditorFor(model => model[i].Amount, new { @min = 1 })
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                @((Model[i].Price * Model[i].Amount).ToString("#,###")) VNĐ
+                                            </td>
+                                            <td class="shoping__cart__item__close">
+                                                <a href="@Url.Action("RemoveItemCart", "Pay", new { id = Model[i].Id})"><span class="icon_close"></span></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+@*<script>
+      $(document).ready(function () {
+          function updateAmount(id, amount) {
+              alert("aa");
+            $.ajax({
+                type: "post",
+                url: "/Pay/AddItemToCart?amount=" + amount + "&id=" + id,
+                type: "json",
+                success: function (respnse) {
+
+                }
+            })
+        }
+      })
+
+    function noti() {
+        alert("Cập nhật thành công!");
+    }
+</script>*@
+<style>
+    .cancel {
+        text-decoration: none
+    }
+
+    .bg-pay {
+        background-color: #eee;
+        border-radius: 2px
+    }
+
+    .com-color {
+        color: #8f37aa !important
+    }
+
+    .radio {
+        cursor: pointer
+    }
+
+    label.radio input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+        pointer-events: none
+    }
+
+    label.radio div {
+        padding: 7px 14px;
+        border: 2px solid #8f37aa;
+        display: inline-block;
+        color: #8f37aa;
+        border-radius: 3px;
+        text-transform: uppercase;
+        width: 100%;
+        margin-bottom: 10px
+    }
+
+    label.radio input:checked + div {
+        border-color: #8f37aa;
+        background-color: #8f37aa;
+        color: #fff
+    }
+
+    .fw-500 {
+        font-weight: 400
+    }
+
+    .lh-16 {
+        line-height: 16px
+    }
+</style>

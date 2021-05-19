@@ -1,0 +1,83 @@
+﻿@model Models.EF.Pay
+
+@{
+    ViewBag.Title = "Sửa hóa đơn của" + Model.User.user_email;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <button class="btn btn-danger" onclick="history.back()"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</button>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.user_id, "user_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                           <b>Email của (Cho chọn email trong danh sách users)</b>
+                            @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Giá tiền hóa đơn</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.pay_sum, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pay_sum, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Ngày tạo (Mặc định lúc đầu)</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.pay_date, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pay_date, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Tình trạng hóa đơn (Select cho chọn)</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.pay_status, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pay_status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Các sản phẩm: (Show không cần cho chỉnh)</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.item_json, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.item_json, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Hình thức: (select cho chọn hình thức)</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.pay_form, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.pay_form, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Sửa hóa đơn" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</section>
+
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3f00e90ca7a4b2483394871269e1107" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="EcommerceDataModel.GroupRole" Width="1.5" PointX="6" PointY="6" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Group" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Pay" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Product" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="EcommerceDataModel.ProductDescription" Width="1.5" PointX="5.25" PointY="8.75" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Role" Width="1.5" PointX="3.75" PointY="4.25" />
+        <EntityTypeShape EntityType="EcommerceDataModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Term" Width="1.5" PointX="6" PointY="11.875" />
+        <EntityTypeShape EntityType="EcommerceDataModel.UserMeta" Width="1.5" PointX="3" PointY="16.25" />
+        <EntityTypeShape EntityType="EcommerceDataModel.User" Width="1.5" PointX="0.75" PointY="8.375" />
+        <AssociationConnector Association="EcommerceDataModel.FK_GroupRole_Roles" />
+        <AssociationConnector Association="EcommerceDataModel.FK_GroupRole_Users" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Groups_Product" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Groups_Terms" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Groups_Users" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Pays_Users" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Product_Users" />
+        <AssociationConnector Association="EcommerceDataModel.FK_ProductDescription_Product" />
+        <AssociationConnector Association="EcommerceDataModel.FK_UserMeta_Users" />
+        <EntityTypeShape EntityType="EcommerceDataModel.PayMeta" Width="1.5" PointX="5.25" PointY="19.375" />
+        <AssociationConnector Association="EcommerceDataModel.FK_PayMeta_Pays" />
+        <EntityTypeShape EntityType="EcommerceDataModel.Collection" Width="1.5" PointX="8.25" PointY="12.75" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Collection_Product" />
+        <AssociationConnector Association="EcommerceDataModel.FK_Collection_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

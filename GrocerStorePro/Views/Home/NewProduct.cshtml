@@ -1,0 +1,60 @@
+﻿@using Models.EF;
+@model List<Product>
+@using GrocerStorePro.Function;
+@{
+    FunctionController fucntion = new FunctionController();
+}
+
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+        <div class="product__discount__item">
+            <div class="product__discount__item__pic set-bg"
+                 data-setbg="/Images/Product/@item.product_img">
+                @if (item.product_percent > 0)
+                {
+                    <div class="product__discount__percent">-@item.product_percent%</div>
+                }
+                <ul class="product__item__pic__hover">
+                    @if (fucntion.CookieID() != null)
+                    {
+                        var user = fucntion.CookieID();
+                        if (user.Collections.FirstOrDefault(t => t.Product_Id == item.ID) != null)
+                        {
+                            <li><a href="@Url.Action("Bookmark", "Product", new { id = item.ID})"><i class="fa fa-heart"></i></a></li>
+                        }
+                        else
+                        {
+                            <li><a onclick="alert('Bạn đã lưu sản phẩm này!')"><i class="fa fa-heart"></i></a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li><a onclick="alert('Vui lòng đăng nhập để lưu sản phẩm!')"><i class="fa fa-heart"></i></a></li>
+                    }
+                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                    @if (item.product_inventory > 0)
+                    {
+                        <li><a href="@Url.Action("AddItemToCart", "Pay", new { id = item.ID, amount = 1})"><i class="fa fa-shopping-cart"></i></a></li>
+                    }
+                    else
+                    {
+                        <li><a onclick="alert('Sản phẩm hết hàng!')"><i class="fa fa-shopping-cart"></i></a></li>
+                    }
+                </ul>
+            </div>
+            <div class="product__discount__item__text">
+                <span>@item.Groups.FirstOrDefault(t => t.term_id != null).Term.term_name</span>
+                <h5><a href="@Url.Action("Details", "Product", new { id = item.ID})">@item.product_name</a></h5>
+                @if (item.product_percent > 0)
+                {
+                    <div class="product__item__price">@(((float)item.product_price * (1 - (float)item.product_percent / 100)).ToString("#,###")) VNĐ <span>@item.product_price.Value.ToString("#,###") VNĐ</span></div>
+                }
+                else
+                {
+                    <h5>@(((float)item.product_price * (1 - (float)item.product_percent / 100)).ToString("#,###")) VNĐ</h5>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,265 @@
+﻿@model Models.EF.User
+
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@Html.Action("SearchHeader", "Product")
+<link href="~/Content/Profile.css" rel="stylesheet" />
+<section class="breadcrumb-section set-bg" data-setbg="/Content/Layout/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Chào @Model.user_nicename</h2>
+                    <div class="breadcrumb__option">
+                        <span>Thông tin cá nhân @ViewBag.key</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-12 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row">
+                        <div class="col-sm-4 bg-c-lite-green user-profile" style="background-image: url('../../Images/Users/Hình-nền-đẹp-sắc-nét-cho-điện-thoại-576x1024.jpg');
+    ">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
+                                <h6 class="f-w-600">Khách hàng</h6>
+                                <p>@Model.user_email</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <style>
+                                .card-block p {
+                                    font-size: 20px
+                                }
+                            </style>
+                            <div class="card-block">
+                                <h5 class="m-b-20 m-t-5 p-b-5 b-b-default f-w-600 text-danger">Thông tin tài khoản</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-envelope">&nbsp;</i>Email đăng nhập</p>
+                                        <h6 class="text-muted f-w-400">@Model.user_email</h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-user-circle">&nbsp;</i>Tên hiển thị</p>
+                                        <h6 class="text-muted f-w-400">@Model.user_nicename <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-key">&nbsp;</i>Mật khẩu</p>
+                                        <h6 class="text-muted f-w-400">*****************<a class="text-primary" data-toggle="modal" data-target="#changepass" style="cursor: pointer">Thay đổi</a></h6>
+                                        <h6>Thay đổi lần gần đây: @(Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_password").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_password").meta_value : "Chưa cập nhật")</h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-check-circle">&nbsp;</i>Tình trạng</p>
+                                        <h6 class="text-muted f-w-400">
+                                            @(Model.user_status == Commons.CommonConstants.user_status_ondinh ? "Hoạt động" : Model.user_status == Commons.CommonConstants.user_status_uutien ? "Hoạt đông và được ưu tiên" : "Không ổn định")
+                                        </h6>
+                                    </div>
+                                </div>
+                                <h5 class="m-b-20 p-b-40 b-b-default f-w-600 text-danger mt-4">Thông tin mua hàng</h5>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-envelope-open">&nbsp;</i>Email</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "email").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "email").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-phone">&nbsp;</i>Số điện thoại</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-map-marker">&nbsp;</i>Địa chỉ</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-facebook">&nbsp;</i>Facebook</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><img src="~/Images/Users/zalo.png" style="width: 15px; height: 15px" />&nbsp;Zalo</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                    <div class="col-sm-6 mt-2">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-genderless"></i>Giới tính</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "sex").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "sex").meta_value : "Chưa cập nhật") <a class="text-primary" data-toggle="modal" data-target="#mh" style="cursor: pointer">Thay đổi</a></h6>
+                                    </div>
+                                </div>
+                                <h5 class="m-b-20 p-b-40 b-b-default f-w-600 text-danger mt-4">Thông số</h5>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-calendar">&nbsp;</i>Ngày tạo</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "date").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "date").meta_value : "Chưa cập nhật")</h6>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600"><i class="fa fa-sign-in">&nbsp;</i>Ngày đăng nhập</p>
+                                        <h6 class="text-muted f-w-400">@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_login").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_login").meta_value : "Chưa cập nhật")</h6>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <center>
+                                    <button class="btn btn-success" data-toggle="modal" data-target="#mh"><i class="fa fa-edit">&nbsp;</i>Thay đổi thông tin mua hàng</button>
+                                    <button class="btn btn-warning"><i class="fa fa-history">&nbsp;</i>Lịch sử hoạt động</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#changepass"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</button>
+                                    <button class="btn btn-danger" onclick="window.location.href='/Accont/Logoff'"><i class="fa fa-sign-out">&nbsp;</i>Đăng xuất</button>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Thông tin mua hàng-->
+<!-- Modal -->
+<div class="modal fade" id="mh" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật thông tin mua hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="@Url.Action("EditPay","Account")" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="idus" value="@Model.ID" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p class="m-b-10 f-w-600"><i class="fa fa-envelope-open">&nbsp;</i>Email</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "email").meta_key" placeholder="Nhập email" value="@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "email").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "email").meta_value : "Chưa cập nhật")" class="form-control" />
+                            </h6>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <p class="m-b-10 f-w-600"><i class="fa fa-phone">&nbsp;</i>Số điện thoại</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_key" placeholder="Nhập số điện thoại" value="@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "phonenumber").meta_value : "")" class="form-control" />
+                            </h6>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <p class="m-b-10 f-w-600"><i class="fa fa-map-marker">&nbsp;</i>Địa chỉ</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_key" placeholder="Nhập địa chỉ nhận hàng" value="@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "address").meta_value : "")" class="form-control" />
+                            </h6>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <p class="m-b-10 f-w-600"><i class="fa fa-facebook">&nbsp;</i>Facebook</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_key" placeholder="Nhập link cá nhân facebook" value="@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "fb").meta_value : "")" class="form-control" />
+                            </h6>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <p class="m-b-10 f-w-600"><img src="~/Images/Users/zalo.png" style="width: 15px; height: 15px" />&nbsp;Zalo</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_key" placeholder="Số điện thoại zalo" value="@(Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_value : "")" class="form-control" />
+                            </h6>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <p class="m-b-10 f-w-600"><i class="fa fa-genderless"></i>Giới tính</p>
+                            <h6 class="">
+                                <select name="@Model.UserMetas.FirstOrDefault(t => t.meta_key == "zalo").meta_key" class="form-control w-100">
+                                    <option value="" @(Model.UserMetas.FirstOrDefault(t => t.meta_key == "sex").meta_value == null ? "selected" : "" )>Chọn giới tính</option>
+                                    <option value="Nam" @(Model.UserMetas.FirstOrDefault(t => t.meta_key == "sex").meta_value == "Nam" ? "selected" : "" )>Nam</option>
+                                    <option value="Nữ" @(Model.UserMetas.FirstOrDefault(t => t.meta_key == "sex").meta_value == "Nữ" ? "selected" : "" )>Nữ</option>
+                                </select>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="changepass" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5> <br />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="@Url.Action("ChangePassword","Account")" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="idus" value="@Model.ID" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-danger">Lần thay đổi gần đây: @(Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_password").meta_value != null ? Model.UserMetas.FirstOrDefault(t => t.meta_key == "date_password").meta_value : "Chưa cập nhật")</p>
+
+                            <p class="m-b-10 f-w-600">Mật khẩu cũ</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="old" placeholder="Mật khẩu cũ" value="" class="form-control" />
+                            </h6>
+
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <p class="m-b-10 f-w-600">Mật khẩu mới</p>
+                            <h6 class="text-muted">
+                                <input type="text" name="passnew" placeholder="Mật khẩu mới" value="" class="form-control" />
+                            </h6>
+
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            <p class="m-b-10 f-w-600">Xác nhận mật khẩu mới</p>
+                            <h6 class="text-muted f-w-400">
+                                <input type="text" name="" placeholder="Xác nhận mật khẩu mới" value="" class="form-control" />
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .nice-select {
+        height: 38px;
+        line-height: 20px;
+        padding-left: 18px;
+        padding-right: 30px;
+    }
+</style>
+@ViewBag.key
+@if (ViewBag.key == "thongtinmuahang")
+{
+    <script>
+        $(document).ready(function () {
+            $('#mh').modal('show');
+        })
+    </script>
+}
+@if (ViewBag.key == "doimatkhau")
+{
+    <script>
+        $(document).ready(function () {
+            $('#changepass').modal('show');
+        })
+    </script>
+}
+

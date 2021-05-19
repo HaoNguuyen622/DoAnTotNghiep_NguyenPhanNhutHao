@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EcommerceDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Collection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="DateAdd" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GroupRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="term_id" Type="int" />
+          <Property Name="group_date" Type="datetime" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="group_item" Type="int" />
+        </EntityType>
+        <EntityType Name="PayMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_pay" Type="int" />
+          <Property Name="meta_key" Type="varchar" MaxLength="255" />
+          <Property Name="meta_value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Pays">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="pay_sum" Type="money" />
+          <Property Name="pay_date" Type="datetime" />
+          <Property Name="pay_status" Type="int" />
+          <Property Name="item_json" Type="nvarchar(max)" />
+          <Property Name="pay_form" Type="int" />
+          <Property Name="pay_guild" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="product_date" Type="datetime" />
+          <Property Name="product_update" Type="datetime" />
+          <Property Name="product_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="product_guid" Type="varchar" MaxLength="255" />
+          <Property Name="product_password" Type="nvarchar" MaxLength="255" />
+          <Property Name="product_view" Type="int" />
+          <Property Name="product_content" Type="nvarchar(max)" />
+          <Property Name="product_status" Type="int" />
+          <Property Name="product_img" Type="varchar" MaxLength="2000" />
+          <Property Name="product_price" Type="money" />
+          <Property Name="product_percent" Type="int" />
+          <Property Name="product_active" Type="bit" />
+          <Property Name="product_inventory" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="pd_content" Type="varchar" MaxLength="255" />
+          <Property Name="pd_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Terms">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="term_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="term_item" Type="int" />
+        </EntityType>
+        <EntityType Name="UserMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="meta_key" Type="varchar" MaxLength="255" />
+          <Property Name="meta_value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_login" Type="varchar" MaxLength="60" />
+          <Property Name="user_pass" Type="varchar" MaxLength="255" />
+          <Property Name="user_nicename" Type="varchar" MaxLength="50" />
+          <Property Name="user_email" Type="varchar" MaxLength="100" />
+          <Property Name="user_activation_key" Type="varchar" MaxLength="255" />
+          <Property Name="user_status" Type="int" />
+        </EntityType>
+        <Association Name="FK_Collection_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collection_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Collection" Type="Self.Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupRole_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="GroupRole" Type="Self.GroupRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupRole">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupRole_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="GroupRole" Type="Self.GroupRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupRole">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Terms">
+          <End Role="Terms" Type="Self.Terms" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Terms">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="term_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pays_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pays" Type="Self.Pays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pays">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDescription_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductDescription" Type="Self.ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMeta_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserMeta" Type="Self.UserMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserMeta">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceDataModelStoreContainer">
+          <EntitySet Name="Collection" EntityType="Self.Collection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupRole" EntityType="Self.GroupRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayMeta" EntityType="Self.PayMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pays" EntityType="Self.Pays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Terms" EntityType="Self.Terms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMeta" EntityType="Self.UserMeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Collection_Product" Association="Self.FK_Collection_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collection_Users" Association="Self.FK_Collection_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Collection" EntitySet="Collection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupRole_Roles" Association="Self.FK_GroupRole_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="GroupRole" EntitySet="GroupRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupRole_Users" Association="Self.FK_GroupRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GroupRole" EntitySet="GroupRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Product" Association="Self.FK_Groups_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Terms" Association="Self.FK_Groups_Terms">
+            <End Role="Terms" EntitySet="Terms" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="Self.FK_Groups_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pays_Users" Association="Self.FK_Pays_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pays" EntitySet="Pays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Users" Association="Self.FK_Product_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDescription_Product" Association="Self.FK_ProductDescription_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductDescription" EntitySet="ProductDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMeta_Users" Association="Self.FK_UserMeta_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserMeta" EntitySet="UserMeta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommerceDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EcommerceDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GroupRoles" EntityType="EcommerceDataModel.GroupRole" />
+          <EntitySet Name="Groups" EntityType="EcommerceDataModel.Group" />
+          <EntitySet Name="Pays" EntityType="EcommerceDataModel.Pay" />
+          <EntitySet Name="Products" EntityType="EcommerceDataModel.Product" />
+          <EntitySet Name="ProductDescriptions" EntityType="EcommerceDataModel.ProductDescription" />
+          <EntitySet Name="Roles" EntityType="EcommerceDataModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="EcommerceDataModel.sysdiagram" />
+          <EntitySet Name="Terms" EntityType="EcommerceDataModel.Term" />
+          <EntitySet Name="UserMetas" EntityType="EcommerceDataModel.UserMeta" />
+          <EntitySet Name="Users" EntityType="EcommerceDataModel.User" />
+          <AssociationSet Name="FK_GroupRole_Roles" Association="EcommerceDataModel.FK_GroupRole_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="GroupRole" EntitySet="GroupRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GroupRole_Users" Association="EcommerceDataModel.FK_GroupRole_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="GroupRole" EntitySet="GroupRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Product" Association="EcommerceDataModel.FK_Groups_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Terms" Association="EcommerceDataModel.FK_Groups_Terms">
+            <End Role="Term" EntitySet="Terms" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Users" Association="EcommerceDataModel.FK_Groups_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Group" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pays_Users" Association="EcommerceDataModel.FK_Pays_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Pay" EntitySet="Pays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Users" Association="EcommerceDataModel.FK_Product_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDescription_Product" Association="EcommerceDataModel.FK_ProductDescription_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductDescription" EntitySet="ProductDescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMeta_Users" Association="EcommerceDataModel.FK_UserMeta_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserMeta" EntitySet="UserMetas" />
+          </AssociationSet>
+          <EntitySet Name="PayMetas" EntityType="EcommerceDataModel.PayMeta" />
+          <AssociationSet Name="FK_PayMeta_Pays" Association="EcommerceDataModel.FK_PayMeta_Pays">
+            <End Role="Pay" EntitySet="Pays" />
+            <End Role="PayMeta" EntitySet="PayMetas" />
+          </AssociationSet>
+          <EntitySet Name="Collections" EntityType="EcommerceDataModel.Collection" />
+          <AssociationSet Name="FK_Collection_Product" Association="EcommerceDataModel.FK_Collection_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Collection" EntitySet="Collections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collection_Users" Association="EcommerceDataModel.FK_Collection_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Collection" EntitySet="Collections" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="GroupRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="EcommerceDataModel.FK_GroupRole_Roles" FromRole="GroupRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_GroupRole_Users" FromRole="GroupRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="term_id" Type="Int32" />
+          <Property Name="group_date" Type="DateTime" Precision="3" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="group_item" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="EcommerceDataModel.FK_Groups_Product" FromRole="Group" ToRole="Product" />
+          <NavigationProperty Name="Term" Relationship="EcommerceDataModel.FK_Groups_Terms" FromRole="Group" ToRole="Term" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_Groups_Users" FromRole="Group" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="pay_sum" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="pay_date" Type="DateTime" Precision="3" />
+          <Property Name="pay_status" Type="Int32" />
+          <Property Name="item_json" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pay_form" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_Pays_Users" FromRole="Pay" ToRole="User" />
+          <NavigationProperty Name="PayMetas" Relationship="EcommerceDataModel.FK_PayMeta_Pays" FromRole="Pay" ToRole="PayMeta" />
+          <Property Name="pay_guild" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="product_date" Type="DateTime" Precision="3" />
+          <Property Name="product_update" Type="DateTime" Precision="3" />
+          <Property Name="product_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="product_guid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="product_password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="product_view" Type="Int32" />
+          <Property Name="product_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="product_status" Type="Int32" />
+          <Property Name="product_img" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="product_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="product_percent" Type="Int32" />
+          <Property Name="product_active" Type="Boolean" />
+          <Property Name="product_inventory" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="EcommerceDataModel.FK_Groups_Product" FromRole="Product" ToRole="Group" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_Product_Users" FromRole="Product" ToRole="User" />
+          <NavigationProperty Name="ProductDescriptions" Relationship="EcommerceDataModel.FK_ProductDescription_Product" FromRole="Product" ToRole="ProductDescription" />
+          <NavigationProperty Name="Collections" Relationship="EcommerceDataModel.FK_Collection_Product" FromRole="Product" ToRole="Collection" />
+        </EntityType>
+        <EntityType Name="ProductDescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="pd_content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pd_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="EcommerceDataModel.FK_ProductDescription_Product" FromRole="ProductDescription" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GroupRoles" Relationship="EcommerceDataModel.FK_GroupRole_Roles" FromRole="Role" ToRole="GroupRole" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Term">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="term_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="term_item" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="EcommerceDataModel.FK_Groups_Terms" FromRole="Term" ToRole="Group" />
+        </EntityType>
+        <EntityType Name="UserMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="meta_key" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="meta_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_UserMeta_Users" FromRole="UserMeta" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_login" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="user_pass" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_nicename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_activation_key" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="user_status" Type="Int32" />
+          <NavigationProperty Name="GroupRoles" Relationship="EcommerceDataModel.FK_GroupRole_Users" FromRole="User" ToRole="GroupRole" />
+          <NavigationProperty Name="Groups" Relationship="EcommerceDataModel.FK_Groups_Users" FromRole="User" ToRole="Group" />
+          <NavigationProperty Name="Pays" Relationship="EcommerceDataModel.FK_Pays_Users" FromRole="User" ToRole="Pay" />
+          <NavigationProperty Name="Products" Relationship="EcommerceDataModel.FK_Product_Users" FromRole="User" ToRole="Product" />
+          <NavigationProperty Name="UserMetas" Relationship="EcommerceDataModel.FK_UserMeta_Users" FromRole="User" ToRole="UserMeta" />
+          <NavigationProperty Name="Collections" Relationship="EcommerceDataModel.FK_Collection_Users" FromRole="User" ToRole="Collection" />
+        </EntityType>
+        <Association Name="FK_GroupRole_Roles">
+          <End Type="EcommerceDataModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.GroupRole" Role="GroupRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupRole">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GroupRole_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.GroupRole" Role="GroupRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GroupRole">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Product">
+          <End Type="EcommerceDataModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Terms">
+          <End Type="EcommerceDataModel.Term" Role="Term" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Term">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="term_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pays_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Pay" Role="Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDescription_Product">
+          <End Type="EcommerceDataModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.ProductDescription" Role="ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMeta_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.UserMeta" Role="UserMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserMeta">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PayMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_pay" Type="Int32" />
+          <Property Name="meta_key" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="meta_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pay" Relationship="EcommerceDataModel.FK_PayMeta_Pays" FromRole="PayMeta" ToRole="Pay" />
+        </EntityType>
+        <Association Name="FK_PayMeta_Pays">
+          <End Type="EcommerceDataModel.Pay" Role="Pay" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.PayMeta" Role="PayMeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pay">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PayMeta">
+              <PropertyRef Name="user_pay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Collection">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="DateAdd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="EcommerceDataModel.FK_Collection_Product" FromRole="Collection" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="EcommerceDataModel.FK_Collection_Users" FromRole="Collection" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Collection_Product">
+          <End Type="EcommerceDataModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Collection" Role="Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collection_Users">
+          <End Type="EcommerceDataModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EcommerceDataModel.Collection" Role="Collection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Collection">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommerceDataModelStoreContainer" CdmEntityContainer="EcommerceDataEntities">
+          <EntitySetMapping Name="GroupRoles">
+            <EntityTypeMapping TypeName="EcommerceDataModel.GroupRole">
+              <MappingFragment StoreEntitySet="GroupRole">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Group">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="group_item" ColumnName="group_item" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="group_date" ColumnName="group_date" />
+                <ScalarProperty Name="term_id" ColumnName="term_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pays">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Pay">
+              <MappingFragment StoreEntitySet="Pays">
+                <ScalarProperty Name="pay_guild" ColumnName="pay_guild" />
+                <ScalarProperty Name="pay_form" ColumnName="pay_form" />
+                <ScalarProperty Name="item_json" ColumnName="item_json" />
+                <ScalarProperty Name="pay_status" ColumnName="pay_status" />
+                <ScalarProperty Name="pay_date" ColumnName="pay_date" />
+                <ScalarProperty Name="pay_sum" ColumnName="pay_sum" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="product_inventory" ColumnName="product_inventory" />
+                <ScalarProperty Name="product_active" ColumnName="product_active" />
+                <ScalarProperty Name="product_percent" ColumnName="product_percent" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_img" ColumnName="product_img" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_content" ColumnName="product_content" />
+                <ScalarProperty Name="product_view" ColumnName="product_view" />
+                <ScalarProperty Name="product_password" ColumnName="product_password" />
+                <ScalarProperty Name="product_guid" ColumnName="product_guid" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_update" ColumnName="product_update" />
+                <ScalarProperty Name="product_date" ColumnName="product_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDescriptions">
+            <EntityTypeMapping TypeName="EcommerceDataModel.ProductDescription">
+              <MappingFragment StoreEntitySet="ProductDescription">
+                <ScalarProperty Name="pd_name" ColumnName="pd_name" />
+                <ScalarProperty Name="pd_content" ColumnName="pd_content" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EcommerceDataModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Terms">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Term">
+              <MappingFragment StoreEntitySet="Terms">
+                <ScalarProperty Name="term_item" ColumnName="term_item" />
+                <ScalarProperty Name="term_name" ColumnName="term_name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMetas">
+            <EntityTypeMapping TypeName="EcommerceDataModel.UserMeta">
+              <MappingFragment StoreEntitySet="UserMeta">
+                <ScalarProperty Name="meta_value" ColumnName="meta_value" />
+                <ScalarProperty Name="meta_key" ColumnName="meta_key" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="EcommerceDataModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="user_activation_key" ColumnName="user_activation_key" />
+                <ScalarProperty Name="user_email" ColumnName="user_email" />
+                <ScalarProperty Name="user_nicename" ColumnName="user_nicename" />
+                <ScalarProperty Name="user_pass" ColumnName="user_pass" />
+                <ScalarProperty Name="user_login" ColumnName="user_login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayMetas">
+            <EntityTypeMapping TypeName="EcommerceDataModel.PayMeta">
+              <MappingFragment StoreEntitySet="PayMeta">
+                <ScalarProperty Name="meta_value" ColumnName="meta_value" />
+                <ScalarProperty Name="meta_key" ColumnName="meta_key" />
+                <ScalarProperty Name="user_pay" ColumnName="user_pay" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collections">
+            <EntityTypeMapping TypeName="EcommerceDataModel.Collection">
+              <MappingFragment StoreEntitySet="Collection">
+                <ScalarProperty Name="DateAdd" ColumnName="DateAdd" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

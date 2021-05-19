@@ -1,0 +1,74 @@
+﻿@model Models.EF.User
+
+@{
+    ViewBag.Title = "Xóa thông tin tài khoản " + Model.user_email;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <button class="btn btn-danger" onclick="history.back()"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</button>
+        </div>
+        <div class="card-body">
+
+            <h3>Bạn có chắc muốn xóa?</h3>
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        <b>Tài khoản</b>
+                    </dt>
+
+                    <dd>
+                        @(Model.user_login == null ? "Chưa cập nhật" : Model.user_login)
+                    </dd>
+
+                    <dt>
+                        <b>Mật khẩu</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.user_pass)
+                    </dd>
+
+                    <dt>
+                        <b>Tên hiển thị</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.user_nicename)
+                    </dd>
+
+                    <dt>
+                        <b>Email</b>
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.user_email)
+                    </dd>
+
+                    <dt>
+                        Trạng thái
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.user_status)
+                    </dd>
+
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Xóa vĩnh viễn" class="btn btn-danger" />
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+</section>

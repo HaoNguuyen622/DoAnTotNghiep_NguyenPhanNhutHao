@@ -1,0 +1,98 @@
+﻿@model Models.EF.User
+
+@{
+    ViewBag.Title = "Sưa thông tin tài khoản " + Model.user_email;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            @ViewBag.Title <br /> <br />
+            <button class="btn btn-danger" onclick="history.back()"><i class="fa fa-arrow-circle-left"></i>&nbsp;Trở về</button>
+        </div>
+        <div class="card-body">
+
+            @using (Html.BeginForm("Edit", "UsesrAdmin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+                    @Html.HiddenFor(model => model.user_activation_key)
+
+                    <div class="form-group">
+                        <b>Tài khoản</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.user_login, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.user_login, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Mật khẩu</b>
+                        <div class="col-md-10">
+                            <input type="password" name="user_pass" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Tên hiển thị</b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.user_nicename, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.user_nicename, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Email</b>
+                        <div class="col-md-10">
+                            <input type="email" name="user_email" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Số điện thoại</label>
+                        <div class="col-md-10">
+                            <input type="tel" name="phonennumber" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Địa chỉ</label>
+                        <div class="col-md-10">
+                            <input type="text" name="address" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Trạng thái</b>
+                        <div class="col-md-10">
+                            <select class="form-control">
+                                <option value="1">Ổn định</option>
+                                <option value="2">Bất ổn định</option>
+                                <option value="2">Ưu tiên</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    @if (ViewBag.Noti != null)
+                    {
+                        <div class="alert alert-danger">
+                            <span>@ViewBag.Noti</span>
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+
+</section>
+
